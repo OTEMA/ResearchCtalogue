@@ -4,17 +4,23 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePublicationTable extends Migration
-{
+class CreatePublicationTable extends Migration {
+
     /**
      * Run the migrations.
      *
      * @return void
      */
-    public function up()
-    {
+    public function up() {
         Schema::create('publication', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('category_id');
+            $table->string('author_name');
+            $table->string('author_email')->unique();
+            $table->string('publication_code');
+            $table->text('description');
+            $table->string('path')->nullable();
+            $table->tinyinteger('status')->default('0');
             $table->timestamps();
         });
     }
@@ -24,8 +30,8 @@ class CreatePublicationTable extends Migration
      *
      * @return void
      */
-    public function down()
-    {
+    public function down() {
         Schema::dropIfExists('publication');
     }
+
 }
