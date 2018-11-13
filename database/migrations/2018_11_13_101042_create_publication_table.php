@@ -12,9 +12,10 @@ class CreatePublicationTable extends Migration {
      * @return void
      */
     public function up() {
+        Schema::dropIfExists('publication');
         Schema::create('publication', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('category_id');
+            $table->idex('category_id');
             $table->string('author_name');
             $table->string('author_email')->unique();
             $table->string('publication_code');
