@@ -1,16 +1,10 @@
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Laravel</title>
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet" type="text/css">
-        <!-- Styles -->
         <!-- CSRF Token -->
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <link rel="icon" type="image/png" sizes="16x16" href="{{asset('images/backend_images/favicon.png')}}">
-        <title>MFarmer Dashboard</title>
+        <title>Research Catalogue</title>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="stylesheet" href="{{asset('css/backend_css/bootstrap.min.css')}}" />
@@ -28,12 +22,15 @@
             .links > a {
                 color: #0000F0;
                 padding: 0 25px;
-                margin: 0 0 25px;
+                margin-bottom: 100px;
                 font-size: 13px;
                 font-weight: 600;
                 letter-spacing: .1rem;
                 text-decoration: none;
                 text-transform: uppercase;
+            }
+            .content{
+                margin-top: 100px;
             }
         </style>
     </head>
@@ -43,10 +40,10 @@
             @auth
             <a href="{{ url('/home') }}">Home</a>
             @else
-            <a href="{{ route('login') }}">Login</a>
+            <a href="{{ route('login') }}" class="btn btn-icon-pg btn-mini">Login<i class="icon icon-signin"></i></a>
 
             @if (Route::has('register'))
-            <a href="{{ route('register') }}">Register</a>
+            <a href="{{ route('register') }}" class="btn btn-icon-pg btn-mini">Register</a>
             @endif
             @endauth
         </div>
@@ -63,7 +60,7 @@
                             <th>AUTHOR</th>
                             <th>EMAIL</th>
                             <th>DESCRIPTION</th>
-                            <th>IMAGE</th>
+                            <th>COVER</th>
                             <th>ACTION</th>
                         </tr>
                     </thead>
@@ -71,15 +68,14 @@
                         @foreach($publications as $publication)
                         <tr class="gradeX">
                             <td class="center">{{ $publication->id }}</td>
-                            <td>{{ $publication->category_id }}</td>
+                            <td class="center">{{ $publication->category_id }}</td>
+                            <td class="center">{{ $publication->publication_code }}</td>
                             <td class="center">{{ $publication->author_name }}</td>
-
                             <td class="center">{{ $publication->author_email }}</td>
-                            <td>{{ $publication->path }}</td>
-                            <td><a href="#" class="btn btn-success btn-mini">View <i class="icon icon-eye-open"></i></a> |</td> 
-                            <td><a href="{{url('admin/edit_category/'.$publication->id)}}" class="btn btn-warning btn-mini">Edit <i class="icon icon-edit"></i></a> | </td>
-                            <td><a rel="{{$publication->id}}" rel1="delete_category" href="javascript:" class="btn btn-danger btn-mini deleteCategory">Delete <i class="icon icon-trash"></i></a></td>
-                    </tr>
+                            <td class="center">{{ $publication->description }}</td>
+                            <td class="center">{{ $publication->path }}</td>
+                            <td class="center"><a href="#" class="btn btn-primary btn-mini">View <i class="icon icon-eye-open"></i></a> |</td> 
+                            </tr>
                     @endforeach
                     </tbody>
                 </table>
